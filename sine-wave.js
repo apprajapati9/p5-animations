@@ -24,7 +24,7 @@ function setup() {
 //6x6
 function scaleX(x){
   push()
-  //if you wanna work with 5 units, then divide by some number to get to 6..
+  //if you wanna work with 6 units, then divide by some number to get to 6..
    // 6 * 100 = 600, ... 600/100 = 6... 
   //this will convert it into 6 x 6
   // translate must be used with that unit
@@ -134,6 +134,8 @@ function floatingSquare(){
   p+=0.1
   
   rect(0-rectSize/2, squareP-rectSize/2, rectSize, rectSize)
+
+  rect(5-rectSize/2, squareP-rectSize/2 , rectSize, rectSize)
   
   if(p > TWO_PI){
     p = 0
@@ -144,7 +146,6 @@ function floatingSquare(){
 
 let startPoint = 0
 let endPoint = 10
-
 let startY = 0
 
 function squareCornerAnim(){
@@ -155,6 +156,13 @@ function squareCornerAnim(){
   scale(60)
   //translate(10/2, 10/2)
   strokeWeight(0.1)
+
+  line(0,0, 10,10)
+  line(10,0, 0,10)
+  line(0, 0, 10, 0)
+  line(0, 0, 0, 10)
+  line(0, 10, 10, 10)
+  line(10,10,10, 0)
 
   rect(0,0, squareSize, squareSize) //top left square
   
@@ -192,14 +200,14 @@ function squareCornerAnim(){
 
 function draw() {
   background(200);
-  frameRate(30)
+  frameRate(80)
 
   //backgroundblink()
   sinDotAnim()
   //scaleX(6) //scale 6 x 6... 
   sinWave()
 
-  //floatingSquare()
+  floatingSquare()
 
   squareCornerAnim()
 }
