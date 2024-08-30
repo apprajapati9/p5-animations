@@ -169,9 +169,19 @@ function squareCornerAnim(){
   //also square size is 0.5 so to avoid square getting pushed all the way, we are 
   //only extending to 9.5 so square will not beyond bottom right square. 
   
+  stroke(0,180,0)
   rect(p,p, squareSize, squareSize) // LEFT to RIGHT
   //rect(p2,p2, squareSize, squareSize) //right to left   // TODO:  cross on other side.  from top right to bottom left
+
+  let p1 = -9.5 * (sin(startPoint) - 1)/2
+  //let p2 = 9.5 * (sin(startPoint) + 1) / 2
   
+  console.log("pl value ", p1)
+
+  stroke(254,35,250)
+  rect(p1, p, squareSize, squareSize) // 1 10 .. 10 1
+
+
   startPoint += 0.01
 
   if(startPoint > TWO_PI){
