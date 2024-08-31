@@ -64,7 +64,8 @@ function sinDotAnim(){
   stroke(0,0,0)
   point(0,0)
   stroke(255,0,0)
-   let p = (sin(r) + 1)/ 2;  // 0/2 will be 0.. 1/2 = 1 so keeps between 1 and 0.
+  let p = (sin(r) + 1) * 0.5;  // 0/2 will be 0.. 1/2 = 1 so keeps between 1 and 0.
+  //you can also multiply with 0*5 instead of /2 which will give the same answer.
   point(0, p)
   r += 0.1
   
