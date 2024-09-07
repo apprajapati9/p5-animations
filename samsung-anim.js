@@ -31,31 +31,32 @@ function toRadians(degrees){
 
 
 function draw() {
-  background(220);
+  background(255);
   frameRate(60)
   
   push()
   translate(200,200)
   rotate(angle)
-  
+  stroke("#0974f1")
   for(let i = 0; i < 4; i++){
     let rad = toRadians(circles[i])
     let y = r * sin(rad) 
     let x = r * cos(rad)
     if(i < 3){
-      fill('#99997799')
+        fill('#210cae')
+        circle(x,y, 20)
     }else{
-      fill('#00339999')
+      stroke('#1CAC78')
+      fill('#1CAC78')
+      circle(x,y, 20)
     }
-    
-    circle(x,y, 20)
   }
   
-  r = lerp(20,50,  (sin(frameCount * 0.07) + 1) / 2)
+  r = lerp(20,50,  (sin(frameCount * 0.09) + 1) / 2)
   
   pop()
     
-  angle += 0.1
+  angle = (angle + 0.08) 
 
   if(angle >= 360){
     angle = 0
