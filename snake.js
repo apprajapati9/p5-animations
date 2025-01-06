@@ -7,14 +7,22 @@ class V2{
   }
   
   class snake {
-    constructor(x,y) {
+    constructor(x,y, c) {
       this.x = x
       this.y = y
+      this.c = c
     }
     
     drawSnake(){
-      fill('rgb(39,35,35)')
+      fill(this.c)
+      stroke(this.c)
       square(this.x, this.y, 1)
+    }
+    
+    swalloAnim(){
+      fill(this.c)
+      stroke(this.c)
+      square(this.x, this.y, 2)
     }
   
     //1 left, 2, right, 3 up, 4 down
@@ -43,12 +51,16 @@ class V2{
       this.y = y;
     }
     
+    setColor(c){
+      this.c = c
+    }
+    
   }
   
   let WIDTH = 600
   let HEIGHT = 600
   
-  let scaleFactor = 10 
+  let scaleFactor =30
   // scaling 10 times. thus 600/10 = 60 lines.
   //simplest way to think is now each point/line has 10x10 coordinate. 
   
@@ -57,14 +69,14 @@ class V2{
   
   let randomLocation = 0
   
-  let sn = new snake(0,0)
+  let sn = new snake(0,0,'green')
   let lines = HEIGHT/scaleFactor
   
   let longSnake = []
   
   let direction = 3
   
-  let fRate = 10
+  let fRate = 15
   let updateFood = false
   
   function getRandomLocation() {
@@ -73,6 +85,13 @@ class V2{
   
   function getRandomFoodLocation() {
     return random(0,lines).toFixed(0) 
+  }
+  
+  function getRandomColor() {
+    let r = random(1,255)
+    let g= random(1,255)
+    let b = random(1,255)
+    return color(r,g,b)
   }
   
   function setup() {
@@ -89,13 +108,13 @@ class V2{
     //23 23
     if(dir > 1){
       for(let i = randomLocation; i < randomLocation+5; i++){
-        let tempSnake = new snake(i, randomLocation)
+        let tempSnake = new snake(i, randomLocation, 'green')
         longSnake.push(tempSnake)
          //console.log("added")
       }
     }else{
       for(let i = randomLocation; i < randomLocation+5; i++){
-        let tempSnake = new snake(randomLocation, i)
+        let tempSnake = new snake(randomLocation, i, 'green')
         longSnake.push(tempSnake)
         //console.log("added", i)
       }
@@ -112,7 +131,7 @@ class V2{
     first.x = Number(first.x)
     first.y = Number(first.y)
     
-    let temp = new snake(first.x, first.y)
+    let temp = new snake(first.x, first.y, 'green')
       
       if(direction == 1){
         if(first.x > 0) {
@@ -162,7 +181,7 @@ class V2{
       }
     
     for(let i = 1; i < longSnake.length; i++){
-        let current = new snake(longSnake[i].x, longSnake[i].y)
+        let current = new snake(longSnake[i].x, longSnake[i].y, 'green')
         longSnake[i].setLocation(temp.x, temp.y)
         temp = current
     }
@@ -170,15 +189,22 @@ class V2{
     if(extend){
       updateFood = true
       if(direction == 1 || direction == 2) {
-        longSnake.push(new snake(temp.x + 1, temp.y))
+        longSnake.push(new snake(temp.x + 1, temp.y, 'green'))
       }
       if(direction == 3 || direction == 4) {
-        longSnake.push(new snake(temp.x, temp.y + 1))
+        longSnake.push(new snake(temp.x, temp.y + 1, 'green'))
+      }
+      
+      let foodC = sn.c //color of snake
+      for(let i = 0; i < longSnake.length; i++){
+          longSnake[i].c = foodC
+          longSnake[i].c = 'green'
       }
     }
     
     if(updateFood){
       sn.setLocation(getRandomFoodLocation(), getRandomFoodLocation())
+      sn.setColor(getRandomColor())
       updateFood = false
     }
     
@@ -199,13 +225,14 @@ class V2{
     // 600/10 = 60 lines.
   
     
-      sn.drawSnake()
+    sn.drawSnake()
     
-    strokeWeight(1/scaleFactor)
-    for(let i = 0; i <= 60; i++) {
-      line(0, i, WIDTH, i)
-      line(i,0, i, HEIGHT)
-    }  
+
+     strokeWeight(1/scaleFactor)
+    // for(let i = 0; i <= 60; i++) {
+    //   line(0, i, WIDTH, i)
+    //   line(i,0, i, HEIGHT)
+    // }  
   
     console.log("x,y ", sn.x, sn.y)
   
@@ -231,5 +258,6 @@ class V2{
       longSnake[i].drawSnake()
     }
     updateSnakePosition()
-
+    
+    
   }
