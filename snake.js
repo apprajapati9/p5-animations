@@ -12,11 +12,56 @@ class V2{
       this.y = y
       this.c = c
     }
-    
-    drawSnake(){
-      fill(this.c)
+
+    drawHead() {
+      fill(this.c) 
       stroke(this.c)
-      square(this.x, this.y, 1)
+      circle(this.x/2, this.y/2, 1)
+    }
+    
+    drawSnake(num, dir){
+  
+      if(num == 0){
+        circle(this.x, this.y, 1.2)
+        fill('black')
+
+        if(dir == 1 || dir == 2){
+           circle(this.x, this.y-0.3, 0.4)
+           circle(this.x, this.y+0.3, 0.4)
+        }else {
+          circle(this.x-0.3, this.y, 0.4)
+          circle(this.x+0.3, this.y, 0.4)
+        }
+        
+        // 1 left 
+        strokeWeight(.25)
+        if(dir == 1)
+          line(this.x, this.y, this.x-1, this.y)
+        
+        //right
+        if(dir == 2){
+          line(this.x, this.y, this.x+1, this.y)
+        }
+
+        if(dir == 3){
+          line(this.x, this.y, this.x, this.y-1)
+        }
+
+        if(dir == 4)
+           line(this.x, this.y, this.x, this.y+1)
+
+        strokeWeight(0.1)
+      }else{
+        fill(this.c)
+        stroke(this.c)
+        circle(this.x, this.y, 1)
+      }
+
+      //Uncomment below code in case wanna show snake's num/size
+      // fill('black')
+      // strokeWeight(0.01)
+      // textSize(0.8);
+      // text(num, this.x-.2, this.y) 
     }
     
     swalloAnim(){
@@ -60,7 +105,7 @@ class V2{
   let WIDTH = 600
   let HEIGHT = 600
   
-  let scaleFactor =30
+  let scaleFactor = 20
   // scaling 10 times. thus 600/10 = 60 lines.
   //simplest way to think is now each point/line has 10x10 coordinate. 
   
@@ -70,7 +115,7 @@ class V2{
   let randomLocation = 0
   
   let sn = new snake(0,0,'green')
-  let lines = HEIGHT/scaleFactor
+  let lines = (HEIGHT/scaleFactor)
   
   let longSnake = []
   
@@ -157,7 +202,7 @@ class V2{
       }
       if(direction == 3){
         
-        if(first.y >= 0){
+        if(first.y > 0){
           first.y -= 1
         }else{
           first.y = lines
@@ -219,8 +264,6 @@ class V2{
     
     background(220);
     
-    background(220);
-    
     scale(scaleFactor) // 600/60 = 10 lines. 
     // 600/10 = 60 lines.
   
@@ -228,34 +271,45 @@ class V2{
     sn.drawSnake()
     
 
-     strokeWeight(1/scaleFactor)
+    strokeWeight(1/scaleFactor)
     // for(let i = 0; i <= 60; i++) {
     //   line(0, i, WIDTH, i)
     //   line(i,0, i, HEIGHT)
     // }  
   
+    // line(0, 0, 1, 1)
+    // line(0, 1, 1, 0)
+
+    // //just to test and 
+    // line(9, 9, 10, 10)
+    // line(9, 10, 10, 9)
     console.log("x,y ", sn.x, sn.y)
   
-  
-    // Check for arrow key presses
-    if (keyIsPressed) {
-      if (keyCode === LEFT_ARROW) {
-        //updateSnakePosition(1)
-        direction = 1
-      } else if (keyCode === RIGHT_ARROW) {
-        //updateSnakePosition(2)
-        direction = 2
-      } else if (keyCode === UP_ARROW) {
-        //updateSnakePosition(3)
-        direction = 3
-      } else if (keyCode === DOWN_ARROW) {
-        //sn.moveSnake(4)
-        direction = 4
-        //updateSnakePosition(4)
-      }
-    }
+
+        // Check for arrow key presses
+        if (keyIsPressed) {
+          if (key === 'a' || keyCode === LEFT_ARROW) {
+            //updateSnakePosition(1)
+            direction = 1
+          } else if (key === 'd' || keyCode === RIGHT_ARROW) {
+            //updateSnakePosition(2)
+            direction = 2
+          } else if (key === 'w' || keyCode === UP_ARROW) {
+            //updateSnakePosition(3)
+            direction = 3
+          } else if (key === 's' || keyCode === DOWN_ARROW) {
+            //sn.moveSnake(4)
+            direction = 4
+            //updateSnakePosition(4)
+          }
+        }
     for(let i = 0; i < longSnake.length; i++){
-      longSnake[i].drawSnake()
+      longSnake[i].drawSnake(i, direction)
+      // if(i != 0){
+      //   longSnake[i].drawSnake()
+      // }else{
+      //   longSnake[i].drawHead()
+      // }
     }
     updateSnakePosition()
     
