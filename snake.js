@@ -22,9 +22,11 @@ class V2{
     drawSnake(num, dir){
   
       if(num == 0){
-        circle(this.x, this.y, 1.2)
+        //snake head
+        circle(this.x, this.y, 1.3)
         fill('black')
 
+        //drawing eyes of snake
         if(dir == 1 || dir == 2){
            circle(this.x, this.y-0.3, 0.4)
            circle(this.x, this.y+0.3, 0.4)
@@ -33,6 +35,8 @@ class V2{
           circle(this.x+0.3, this.y, 0.4)
         }
         
+
+        //drawing tongue
         // 1 left 
         strokeWeight(.25)
         if(dir == 1)
@@ -123,6 +127,8 @@ class V2{
   
   let fRate = 15
   let updateFood = false
+
+  let score = 0 
   
   function getRandomLocation() {
     return random(lines/4, lines- (lines/4)).toFixed(0) 
@@ -232,6 +238,7 @@ class V2{
     }
     
     if(extend){
+      score += 1
       updateFood = true
       if(direction == 1 || direction == 2) {
         longSnake.push(new snake(temp.x + 1, temp.y, 'green'))
@@ -255,7 +262,6 @@ class V2{
     
   }
   
-  
   function draw() {
     
     frameRate(fRate)
@@ -267,6 +273,9 @@ class V2{
     scale(scaleFactor) // 600/60 = 10 lines. 
     // 600/10 = 60 lines.
   
+    textSize(1)
+    text(`Score: ${score}`, 2, 2)
+    console.log('score ', score)
     
     sn.drawSnake()
     
@@ -305,13 +314,6 @@ class V2{
         }
     for(let i = 0; i < longSnake.length; i++){
       longSnake[i].drawSnake(i, direction)
-      // if(i != 0){
-      //   longSnake[i].drawSnake()
-      // }else{
-      //   longSnake[i].drawHead()
-      // }
     }
     updateSnakePosition()
-    
-    
   }
