@@ -7,7 +7,7 @@ function setup() {
   createCanvas(600, 600);
 }
 
-function draw() {
+function draw() { 
   background(0,10); //This is a secret to the trail, without transparent background, trail won't work.
   
   let x = cos(angle) * range;
